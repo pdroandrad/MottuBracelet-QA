@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - MottuBracelet</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d5a27 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .login-header {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            border-radius: 15px 15px 0 0;
+        }
+        .btn-login {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            border: none;
+            border-radius: 25px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+        }
+        .form-control {
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            padding: 12px 15px;
+            transition: all 0.3s ease;
+        }
+        .form-control:focus {
+            border-color: #28a745;
+            box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+        }
+        .alert {
+            border-radius: 10px;
+        }
+        .demo-users {
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #28a745;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="card login-card">
+                    <div class="card-header login-header text-center py-4">
+                        <h2 class="mb-0">
+                            <i class="fas fa-biking me-2"></i>
+                            MottuBracelet
+                        </h2>
+                        <p class="mb-0 mt-2">Sistema de Gerenciamento de Motos</p>
+                    </div>
+                    
+                    <div class="card-body p-5">
+                        <!-- Alerts -->
+                        <div th:if="${param.error}" class="alert alert-danger" role="alert">
+                            <i class="fas fa-exclamation-circle me-2"></i>
+                            Usuário ou senha inválidos!
+                        </div>
+                        
+                        <div th:if="${param.logout}" class="alert alert-success" role="alert">
+                            <i class="fas fa-check-circle me-2"></i>
+                            Logout realizado com sucesso!
+                        </div>
+                        
+                        <!-- Login Form -->
+                        <form th:action="@{/login}" method="post">
+                            <div class="mb-4">
+                                <label for="username" class="form-label fw-bold">
+                                    <i class="fas fa-user me-2"></i>Usuário
+                                </label>
+                                <input type="text" class="form-control" id="username" name="username" 
+                                       placeholder="Digite seu usuário" required autofocus>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="password" class="form-label fw-bold">
+                                    <i class="fas fa-lock me-2"></i>Senha
+                                </label>
+                                <input type="password" class="form-control" id="password" name="password" 
+                                       placeholder="Digite sua senha" required>
+                            </div>
+                            
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-success btn-login">
+                                    <i class="fas fa-sign-in-alt me-2"></i>Entrar
+                                </button>
+                            </div>
+                        </form>
+                        
+                        <!-- Demo Users Info -->
+                        <div class="demo-users p-3 mt-4">
+                            <h6 class="fw-bold mb-3">
+                                <i class="fas fa-info-circle me-2"></i>Usuários de Demonstração
+                            </h6>
+                            <div class="row">
+                                <div class="col-12 mb-2">
+                                    <strong>Admin:</strong> admin / admin123
+                                    <br><small class="text-muted">Acesso total ao sistema</small>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <strong>Operador:</strong> operador / operador123
+                                    <br><small class="text-muted">Acesso às operações básicas</small>
+                                </div>
+                                <div class="col-12">
+                                    <strong>Visualizador:</strong> viewer / viewer123
+                                    <br><small class="text-muted">Acesso apenas para visualização</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

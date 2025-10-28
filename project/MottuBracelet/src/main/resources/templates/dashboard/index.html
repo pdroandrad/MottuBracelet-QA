@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">
+                <i class="fas fa-tachometer-alt me-2 text-success"></i>Dashboard
+            </h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+                <div class="btn-group me-2">
+                    <span class="badge bg-success fs-6">
+                        <i class="fas fa-user me-1"></i>
+                        Bem-vindo, <span th:text="${username}">Usuário</span>!
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="row mb-4">
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2 bg-success text-white">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">
+                                    Total de Pátios
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold" th:text="${totalPatios}">0</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-map-marker-alt fa-2x"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2 bg-dark text-white">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">
+                                    Total de Motos
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold" th:text="${totalMotos}">0</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-motorcycle fa-2x"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2 bg-success text-white">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">
+                                    Total de Dispositivos
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold" th:text="${totalDispositivos}">0</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-microchip fa-2x"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-warning shadow h-100 py-2 bg-dark text-white">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">
+                                    Registros Histórico
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold" th:text="${totalHistoricos}">0</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-history fa-2x"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3 bg-success text-white">
+                        <h6 class="m-0 font-weight-bold">
+                            <i class="fas fa-bolt me-2"></i>Ações Rápidas
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-3" sec:authorize="hasRole('ADMIN') or hasRole('OPERADOR')">
+                                <a th:href="@{/patios/novo}" class="btn btn-success btn-lg w-100">
+                                    <i class="fas fa-plus-circle me-2"></i>
+                                    Novo Pátio
+                                </a>
+                            </div>
+                            <div class="col-md-6 mb-3" sec:authorize="hasRole('ADMIN') or hasRole('OPERADOR')">
+                                <a th:href="@{/motos/nova}" class="btn btn-dark btn-lg w-100">
+                                    <i class="fas fa-plus-circle me-2"></i>
+                                    Nova Moto
+                                </a>
+                            </div>
+                            <div class="col-md-6 mb-3" sec:authorize="hasRole('ADMIN') or hasRole('OPERADOR')">
+                                <a th:href="@{/dispositivos/novo}" class="btn btn-success btn-lg w-100">
+                                    <i class="fas fa-plus-circle me-2"></i>
+                                    Novo Dispositivo
+                                </a>
+                            </div>
+                            <div class="col-md-6 mb-3" sec:authorize="hasRole('ADMIN')">
+                                <a th:href="@{/admin/usuarios/novo}" class="btn btn-dark btn-lg w-100">
+                                    <i class="fas fa-user-plus me-2"></i>
+                                    Novo Usuário
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3 bg-dark text-white">
+                        <h6 class="m-0 font-weight-bold">
+                            <i class="fas fa-info-circle me-2"></i>Informações do Sistema
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <strong>Versão:</strong> 1.0.0
+                        </div>
+                        <div class="mb-3">
+                            <strong>Tecnologias:</strong>
+                            <ul class="list-unstyled mt-2">
+                                <li><i class="fab fa-java me-2 text-success"></i>Spring Boot</li>
+                                <li><i class="fas fa-leaf me-2 text-success"></i>Thymeleaf</li>
+                                <li><i class="fas fa-shield-alt me-2 text-success"></i>Spring Security</li>
+                                <li><i class="fas fa-database me-2 text-success"></i>Flyway</li>
+                            </ul>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Seu Perfil:</strong>
+                            <div class="mt-2">
+                                <span class="badge bg-success" sec:authorize="hasRole('ADMIN')">
+                                    <i class="fas fa-crown me-1"></i>Administrador
+                                </span>
+                                <span class="badge bg-primary" sec:authorize="hasRole('OPERADOR') and !hasRole('ADMIN')">
+                                    <i class="fas fa-cogs me-1"></i>Operador
+                                </span>
+                                <span class="badge bg-secondary" sec:authorize="hasRole('VISUALIZADOR') and !hasRole('ADMIN') and !hasRole('OPERADOR')">
+                                    <i class="fas fa-eye me-1"></i>Visualizador
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

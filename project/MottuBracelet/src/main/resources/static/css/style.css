@@ -1,0 +1,320 @@
+/* MottuBracelet Custom Styles - Tema Preto e Verde */
+
+:root {
+    --primary-green: #28a745;
+    --secondary-green: #20c997;
+    --dark-bg: #1a1a1a;
+    --darker-bg: #0d1117;
+    --light-green: #d4edda;
+    --success-green: #155724;
+    --hover-green: #218838;
+}
+
+/* Global Styles */
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-top: 56px; /* Account for fixed navbar */
+}
+
+/* Navbar Customization */
+.navbar-dark {
+    background-color: var(--dark-bg) !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.navbar-brand .text-success {
+    color: var(--primary-green) !important;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    position: fixed;
+    top: 56px;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    padding: 48px 0 0;
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+    background-color: var(--dark-bg) !important;
+}
+
+.sidebar .nav-link {
+    color: #adb5bd;
+    transition: all 0.3s ease;
+    border-radius: 5px;
+    margin: 2px 8px;
+}
+
+.sidebar .nav-link:hover {
+    color: var(--primary-green);
+    background-color: rgba(40, 167, 69, 0.1);
+}
+
+.sidebar .nav-link.active {
+    color: var(--primary-green);
+    background-color: rgba(40, 167, 69, 0.2);
+    font-weight: 600;
+}
+
+.sidebar-heading {
+    font-size: .75rem;
+    text-transform: uppercase;
+}
+
+/* Main Content */
+.main-content {
+    margin-left: 0;
+    padding: 20px;
+}
+
+@media (min-width: 768px) {
+    .main-content {
+        margin-left: 240px;
+    }
+}
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    transition: box-shadow 0.15s ease-in-out;
+}
+
+.card:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+    border-radius: 10px 10px 0 0 !important;
+    border-bottom: none;
+    font-weight: 600;
+}
+
+/* Buttons */
+.btn {
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-success {
+    background-color: var(--primary-green);
+    border-color: var(--primary-green);
+}
+
+.btn-success:hover {
+    background-color: var(--hover-green);
+    border-color: var(--hover-green);
+    transform: translateY(-1px);
+}
+
+.btn-outline-success {
+    color: var(--primary-green);
+    border-color: var(--primary-green);
+}
+
+.btn-outline-success:hover {
+    background-color: var(--primary-green);
+    border-color: var(--primary-green);
+}
+
+/* Tables */
+.table {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table-dark {
+    background-color: var(--dark-bg);
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) > td {
+    background-color: rgba(40, 167, 69, 0.05);
+}
+
+.table-hover > tbody > tr:hover > td {
+    background-color: rgba(40, 167, 69, 0.1);
+}
+
+/* Badges */
+.badge {
+    font-size: 0.75em;
+    font-weight: 500;
+    border-radius: 4px;
+}
+
+/* Forms */
+.form-control {
+    border-radius: 6px;
+    border: 1px solid #ced4da;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-control:focus {
+    border-color: var(--primary-green);
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+.form-select {
+    border-radius: 6px;
+}
+
+.form-select:focus {
+    border-color: var(--primary-green);
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+/* Alerts */
+.alert {
+    border-radius: 8px;
+    border: none;
+}
+
+.alert-success {
+    background-color: var(--light-green);
+    color: var(--success-green);
+}
+
+/* Modals */
+.modal-content {
+    border-radius: 10px;
+    border: none;
+}
+
+.modal-header {
+    border-radius: 10px 10px 0 0;
+    border-bottom: 1px solid #dee2e6;
+}
+
+/* Footer */
+.footer {
+    background-color: var(--dark-bg);
+    color: #adb5bd;
+    margin-top: auto;
+}
+
+/* Dashboard Statistics Cards */
+.border-left-primary {
+    border-left: 0.25rem solid var(--primary-green) !important;
+}
+
+.border-left-success {
+    border-left: 0.25rem solid var(--secondary-green) !important;
+}
+
+.border-left-info {
+    border-left: 0.25rem solid #17a2b8 !important;
+}
+
+.border-left-warning {
+    border-left: 0.25rem solid #ffc107 !important;
+}
+
+/* Status Badges Colors */
+.status-badge[data-status="DISPONIVEL"] {
+    background-color: var(--primary-green) !important;
+}
+
+.status-badge[data-status="PRONTA_PARA_ALUGUEL"] {
+    background-color: #17a2b8 !important;
+}
+
+.status-badge[data-status="PENDENCIA"] {
+    background-color: #ffc107 !important;
+    color: #212529 !important;
+}
+
+.status-badge[data-status="REPAROS_SIMPLES"] {
+    background-color: #007bff !important;
+}
+
+.status-badge[data-status="AGENDA_PARA_MANUTENCAO"] {
+    background-color: #6c757d !important;
+}
+
+/* Loading and Empty States */
+.text-center.py-5 {
+    padding: 3rem 1rem !important;
+}
+
+.text-center.py-5 i {
+    opacity: 0.5;
+}
+
+/* Responsive Design */
+@media (max-width: 767.98px) {
+    .sidebar {
+        position: static;
+        height: auto;
+        padding: 0;
+    }
+    
+    .main-content {
+        margin-left: 0;
+        padding: 15px;
+    }
+    
+    .table-responsive {
+        font-size: 0.875rem;
+    }
+    
+    .btn-group .btn {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.875rem;
+    }
+}
+
+/* Animation for page transitions */
+.main-content {
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-green);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--hover-green);
+}
+
+/* Print styles */
+@media print {
+    .sidebar,
+    .navbar,
+    .btn,
+    .modal {
+        display: none !important;
+    }
+    
+    .main-content {
+        margin-left: 0 !important;
+    }
+}

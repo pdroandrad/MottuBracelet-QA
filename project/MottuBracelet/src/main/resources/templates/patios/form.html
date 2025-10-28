@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title th:text="${patio.id != null ? 'Editar Pátio' : 'Novo Pátio'}">Pátio</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">
+                <i class="fas fa-map-marker-alt me-2 text-success"></i>
+                <span th:text="${patio.id != null ? 'Editar Pátio' : 'Novo Pátio'}">Pátio</span>
+            </h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+                <a th:href="@{/patios}" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-1"></i>Voltar
+                </a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card shadow">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-edit me-2"></i>Dados do Pátio
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="${patio.id != null ? '/patios/' + patio.id : '/patios'}" 
+                              th:object="${patio}" method="post">
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="nome" class="form-label">Nome do Pátio *</label>
+                                    <input type="text" class="form-control" id="nome" th:field="*{nome}" 
+                                           th:classappend="${#fields.hasErrors('nome')} ? 'is-invalid' : ''" required>
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">
+                                        Erro no nome
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label for="administradorResponsavel" class="form-label">Administrador Responsável *</label>
+                                    <input type="text" class="form-control" id="administradorResponsavel" 
+                                           th:field="*{administradorResponsavel}"
+                                           th:classappend="${#fields.hasErrors('administradorResponsavel')} ? 'is-invalid' : ''" required>
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('administradorResponsavel')}" 
+                                         th:errors="*{administradorResponsavel}">
+                                        Erro no administrador
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-8 mb-3">
+                                    <label for="logradouro" class="form-label">Logradouro *</label>
+                                    <input type="text" class="form-control" id="logradouro" 
+                                           th:field="*{endereco.logradouro}"
+                                           th:classappend="${#fields.hasErrors('endereco.logradouro')} ? 'is-invalid' : ''" required>
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('endereco.logradouro')}" 
+                                         th:errors="*{endereco.logradouro}">
+                                        Erro no logradouro
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-4 mb-3">
+                                    <label for="numero" class="form-label">Número *</label>
+                                    <input type="text" class="form-control" id="numero" 
+                                           th:field="*{endereco.numero}"
+                                           th:classappend="${#fields.hasErrors('endereco.numero')} ? 'is-invalid' : ''" required>
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('endereco.numero')}" 
+                                         th:errors="*{endereco.numero}">
+                                        Erro no número
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="cep" class="form-label">CEP *</label>
+                                    <input type="text" class="form-control" id="cep" 
+                                           th:field="*{endereco.cep}"
+                                           th:classappend="${#fields.hasErrors('endereco.cep')} ? 'is-invalid' : ''" required>
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('endereco.cep')}" 
+                                         th:errors="*{endereco.cep}">
+                                        Erro no CEP
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-8 mb-3">
+                                    <label for="complemento" class="form-label">Complemento</label>
+                                    <input type="text" class="form-control" id="complemento" 
+                                           th:field="*{endereco.complemento}">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="cidade" class="form-label">Cidade *</label>
+                                    <input type="text" class="form-control" id="cidade" 
+                                           th:field="*{endereco.cidade}"
+                                           th:classappend="${#fields.hasErrors('endereco.cidade')} ? 'is-invalid' : ''" required>
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('endereco.cidade')}" 
+                                         th:errors="*{endereco.cidade}">
+                                        Erro na cidade
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label for="pais" class="form-label">País *</label>
+                                    <input type="text" class="form-control" id="pais" 
+                                           th:field="*{endereco.pais}"
+                                           th:classappend="${#fields.hasErrors('endereco.pais')} ? 'is-invalid' : ''" required>
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('endereco.pais')}" 
+                                         th:errors="*{endereco.pais}">
+                                        Erro no país
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="capacidadeMaxima" class="form-label">Capacidade Máxima *</label>
+                                    <input type="number" class="form-control" id="capacidadeMaxima" 
+                                           th:field="*{capacidadeMaxima}" min="1"
+                                           th:classappend="${#fields.hasErrors('capacidadeMaxima')} ? 'is-invalid' : ''" required>
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('capacidadeMaxima')}" 
+                                         th:errors="*{capacidadeMaxima}">
+                                        Erro na capacidade
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-end gap-2">
+                                <a th:href="@{/patios}" class="btn btn-secondary">
+                                    <i class="fas fa-times me-1"></i>Cancelar
+                                </a>
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fas fa-save me-1"></i>
+                                    <span th:text="${patio.id != null ? 'Atualizar' : 'Salvar'}">Salvar</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="card shadow">
+                    <div class="card-header bg-dark text-white">
+                        <h6 class="mb-0">
+                            <i class="fas fa-info-circle me-2"></i>Informações
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Campos obrigatórios:</strong></p>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success me-2"></i>Nome do Pátio</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Administrador</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Endereço completo</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Capacidade máxima</li>
+                        </ul>
+                        
+                        <hr>
+                        
+                        <p><strong>Dicas:</strong></p>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-lightbulb text-warning me-2"></i>Use nomes descritivos</li>
+                            <li><i class="fas fa-lightbulb text-warning me-2"></i>Verifique o endereço</li>
+                            <li><i class="fas fa-lightbulb text-warning me-2"></i>Defina capacidade realista</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

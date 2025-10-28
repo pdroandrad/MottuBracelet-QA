@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle != null ? pageTitle + ' - MottuBracelet' : 'MottuBracelet'}">MottuBracelet</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav th:replace="~{fragments/navbar :: navbar}"></nav>
+    
+    <!-- Main Content -->
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav th:replace="~{fragments/sidebar :: sidebar}" sec:authorize="isAuthenticated()"></nav>
+            
+            <!-- Content Area -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content" sec:authorize="isAuthenticated()">
+                <!-- Alerts -->
+                <div th:replace="~{fragments/alerts :: alerts}"></div>
+                
+                <!-- Page Content -->
+                <div th:replace="${content}">
+                    <p>Conteúdo não encontrado</p>
+                </div>
+            </main>
+            
+            <!-- Full width content for login page -->
+            <main class="col-12 main-content" sec:authorize="!isAuthenticated()">
+                <div th:replace="${content}">
+                    <p>Conteúdo não encontrado</p>
+                </div>
+            </main>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script th:src="@{/js/main.js}"></script>
+</body>
+</html>

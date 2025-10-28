@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+    <footer th:fragment="footer" class="footer mt-auto py-3 bg-dark text-light" sec:authorize="isAuthenticated()">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <span class="text-muted">© 2025 MottuBracelet - Sistema de Gerenciamento de Motos</span>
+                </div>
+                <div class="col-md-6 text-end">
+                    <span class="text-muted">Desenvolvido com Spring Boot & Thymeleaf</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

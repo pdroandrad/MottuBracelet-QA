@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+    <nav th:fragment="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
+        <div class="position-sticky pt-3">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link text-light" th:href="@{/dashboard}" th:classappend="${#request.requestURI == '/dashboard' ? 'active' : ''}">
+                        <i class="fas fa-tachometer-alt me-2"></i>
+                        Dashboard
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link text-light" th:href="@{/patios}" th:classappend="${#strings.startsWith(#request.requestURI, '/patios') ? 'active' : ''}">
+                        <i class="fas fa-map-marker-alt me-2"></i>
+                        Pátios
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link text-light" th:href="@{/motos}" th:classappend="${#strings.startsWith(#request.requestURI, '/motos') ? 'active' : ''}">
+                        <i class="fas fa-motorcycle me-2"></i>
+                        Motos
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link text-light" th:href="@{/dispositivos}" th:classappend="${#strings.startsWith(#request.requestURI, '/dispositivos') ? 'active' : ''}">
+                        <i class="fas fa-microchip me-2"></i>
+                        Dispositivos
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link text-light" th:href="@{/historicos}" th:classappend="${#strings.startsWith(#request.requestURI, '/historicos') ? 'active' : ''}">
+                        <i class="fas fa-history me-2"></i>
+                        Histórico
+                    </a>
+                </li>
+                
+                <!-- Admin Section -->
+                <li class="nav-item mt-3" sec:authorize="hasRole('ADMIN')">
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        <span>Administração</span>
+                    </h6>
+                </li>
+                
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-link text-light" th:href="@{/admin/usuarios}" th:classappend="${#strings.startsWith(#request.requestURI, '/admin/usuarios') ? 'active' : ''}">
+                        <i class="fas fa-users me-2"></i>
+                        Usuários
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</body>
+</html>

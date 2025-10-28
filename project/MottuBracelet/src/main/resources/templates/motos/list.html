@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Motos</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">
+                <i class="fas fa-motorcycle me-2 text-success"></i>Motos
+            </h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+                <div class="btn-group me-2" sec:authorize="hasRole('ADMIN') or hasRole('OPERADOR')">
+                    <a th:href="@{/motos/nova}" class="btn btn-success">
+                        <i class="fas fa-plus me-1"></i>Nova Moto
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-list me-2"></i>Lista de Motos
+                </h5>
+            </div>
+            <div class="card-body">
+                <div th:if="${motos.empty}" class="text-center py-5">
+                    <i class="fas fa-motorcycle fa-3x text-muted mb-3"></i>
+                    <h5 class="text-muted">Nenhuma moto cadastrada</h5>
+                    <p class="text-muted">Clique em "Nova Moto" para adicionar a primeira moto.</p>
+                </div>
+
+                <div th:if="${!motos.empty}" class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>IMEI</th>
+                                <th>Chassi</th>
+                                <th>Placa</th>
+                                <th>Pátio Atual</th>
+                                <th>Status Dispositivo</th>
+                                <th sec:authorize="hasRole('ADMIN') or hasRole('OPERADOR')">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="moto : ${motos}">
+                                <td>
+                                    <span class="badge bg-secondary" th:text="${moto.id}">1</span>
+                                </td>
+                                <td>
+                                    <code th:text="${moto.imei}">123456789012345</code>
+                                </td>
+                                <td th:text="${moto.chassi}">9BWZZZ377VT004251</td>
+                                <td>
+                                    <span class="badge bg-primary" th:text="${moto.placa}">ABC1D23</span>
+                                </td>
+                                <td>
+                                    <div th:if="${moto.patio}">
+                                        <i class="fas fa-map-marker-alt text-success me-1"></i>
+                                        <span th:text="${moto.patio.nome}">Nome do Pátio</span>
+                                    </div>
+                                    <span th:unless="${moto.patio}" class="text-muted">
+                                        <i class="fas fa-question-circle me-1"></i>Não definido
+                                    </span>
+                                </td>
+                                <td>
+                                    <div th:if="${moto.dispositivo}">
+                                        <span class="badge" 
+                                              th:classappend="${moto.dispositivo.status.name() == 'DISPONIVEL' ? 'bg-success' : 
+                                                             moto.dispositivo.status.name() == 'PRONTA_PARA_ALUGUEL' ? 'bg-info' : 
+                                                             moto.dispositivo.status.name() == 'PENDENCIA' ? 'bg-warning' : 'bg-danger'}"
+                                              th:text="${moto.dispositivo.status}">Status</span>
+                                    </div>
+                                    <span th:unless="${moto.dispositivo}" class="text-muted">
+                                        <i class="fas fa-exclamation-triangle me-1"></i>Sem dispositivo
+                                    </span>
+                                </td>
+                                <td sec:authorize="hasRole('ADMIN') or hasRole('OPERADOR')">
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-sm btn-outline-info" 
+                                                data-bs-toggle="modal" 
+                                                th:data-bs-target="'#detailModal' + ${moto.id}"
+                                                title="Ver Detalhes">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+
+                                    <!-- Detail Modal -->
+                                    <div class="modal fade" th:id="'detailModal' + ${moto.id}" tabindex="-1">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header bg-success text-white">
+                                                    <h5 class="modal-title">
+                                                        <i class="fas fa-motorcycle me-2"></i>
+                                                        Detalhes da Moto
+                                                    </h5>
+                                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <h6><i class="fas fa-info-circle text-primary me-2"></i>Informações Básicas</h6>
+                                                            <table class="table table-sm">
+                                                                <tr>
+                                                                    <td><strong>ID:</strong></td>
+                                                                    <td th:text="${moto.id}">1</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><strong>IMEI:</strong></td>
+                                                                    <td><code th:text="${moto.imei}">123456789012345</code></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><strong>Chassi:</strong></td>
+                                                                    <td th:text="${moto.chassi}">9BWZZZ377VT004251</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><strong>Placa:</strong></td>
+                                                                    <td><span class="badge bg-primary" th:text="${moto.placa}">ABC1D23</span></td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <h6><i class="fas fa-map-marker-alt text-success me-2"></i>Localização</h6>
+                                                            <div th:if="${moto.patio}">
+                                                                <p><strong>Pátio:</strong> <span th:text="${moto.patio.nome}">Nome</span></p>
+                                                                <p><strong>Endereço:</strong> 
+                                                                   <span th:text="${moto.patio.endereco.cidade + ', ' + moto.patio.endereco.pais}">Cidade, País</span>
+                                                                </p>
+                                                                <p><strong>Administrador:</strong> 
+                                                                   <span th:text="${moto.patio.administradorResponsavel}">Admin</span>
+                                                                </p>
+                                                            </div>
+                                                            <div th:unless="${moto.patio}">
+                                                                <p class="text-muted">Pátio não definido</p>
+                                                            </div>
+                                                            
+                                                            <h6><i class="fas fa-microchip text-info me-2"></i>Dispositivo</h6>
+                                                            <div th:if="${moto.dispositivo}">
+                                                                <p><strong>Status:</strong> 
+                                                                   <span class="badge" 
+                                                                         th:classappend="${moto.dispositivo.status.name() == 'DISPONIVEL' ? 'bg-success' : 
+                                                                                        moto.dispositivo.status.name() == 'PRONTA_PARA_ALUGUEL' ? 'bg-info' : 
+                                                                                        moto.dispositivo.status.name() == 'PENDENCIA' ? 'bg-warning' : 'bg-danger'}"
+                                                                         th:text="${moto.dispositivo.status}">Status</span>
+                                                                </p>
+                                                            </div>
+                                                            <div th:unless="${moto.dispositivo}">
+                                                                <p class="text-muted">Dispositivo não associado</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

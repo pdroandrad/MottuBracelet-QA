@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title>Novo Usuário</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">
+                <i class="fas fa-user-plus me-2 text-success"></i>Novo Usuário
+            </h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+                <a th:href="@{/admin/usuarios}" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-1"></i>Voltar
+                </a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card shadow">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-edit me-2"></i>Dados do Usuário
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/admin/usuarios}" th:object="${usuario}" method="post">
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="username" class="form-label">Username *</label>
+                                    <input type="text" class="form-control" id="username" th:field="*{username}" 
+                                           th:classappend="${#fields.hasErrors('username')} ? 'is-invalid' : ''" 
+                                           placeholder="Digite o username" required>
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">
+                                        Erro no username
+                                    </div>
+                                    <div class="form-text">Nome de usuário para login (mínimo 3 caracteres)</div>
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label for="email" class="form-label">Email *</label>
+                                    <input type="email" class="form-control" id="email" th:field="*{email}" 
+                                           th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''" 
+                                           placeholder="usuario@mottu.com" required>
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+                                        Erro no email
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="password" class="form-label">Senha *</label>
+                                    <input type="password" class="form-control" id="password" th:field="*{password}" 
+                                           th:classappend="${#fields.hasErrors('password')} ? 'is-invalid' : ''" 
+                                           placeholder="Digite a senha" required>
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+                                        Erro na senha
+                                    </div>
+                                    <div class="form-text">Mínimo 6 caracteres</div>
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label for="enabled" class="form-label">Status</label>
+                                    <select class="form-select" id="enabled" th:field="*{enabled}">
+                                        <option value="true">Ativo</option>
+                                        <option value="false">Inativo</option>
+                                    </select>
+                                    <div class="form-text">Status inicial do usuário</div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Perfis de Acesso *</label>
+                                <div class="row">
+                                    <div th:each="role : ${roles}" class="col-md-4 mb-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" 
+                                                   th:field="*{roles}" th:value="${role.id}" 
+                                                   th:id="'role' + ${role.id}">
+                                            <label class="form-check-label" th:for="'role' + ${role.id}">
+                                                <span class="badge me-2" 
+                                                      th:classappend="${role.name == 'ADMIN' ? 'bg-danger' : 
+                                                                     role.name == 'OPERADOR' ? 'bg-primary' : 'bg-secondary'}"
+                                                      th:text="${role.name}">ROLE</span>
+                                                <br>
+                                                <small class="text-muted" th:text="${role.description}">Descrição</small>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-text">Selecione pelo menos um perfil de acesso</div>
+                            </div>
+
+                            <div class="d-flex justify-content-end gap-2">
+                                <a th:href="@{/admin/usuarios}" class="btn btn-secondary">
+                                    <i class="fas fa-times me-1"></i>Cancelar
+                                </a>
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fas fa-save me-1"></i>Salvar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="card shadow">
+                    <div class="card-header bg-dark text-white">
+                        <h6 class="mb-0">
+                            <i class="fas fa-info-circle me-2"></i>Perfis de Usuário
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <span class="badge bg-danger me-2">ADMIN</span>
+                            <small>Acesso total ao sistema, incluindo gerenciamento de usuários</small>
+                        </div>
+                        <div class="mb-3">
+                            <span class="badge bg-primary me-2">OPERADOR</span>
+                            <small>Pode criar, editar e gerenciar pátios, motos e dispositivos</small>
+                        </div>
+                        <div class="mb-3">
+                            <span class="badge bg-secondary me-2">VISUALIZADOR</span>
+                            <small>Acesso apenas para visualização de dados</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card shadow mt-3">
+                    <div class="card-header bg-info text-white">
+                        <h6 class="mb-0">
+                            <i class="fas fa-lightbulb me-2"></i>Dicas de Segurança
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success me-2"></i>Use senhas fortes</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Atribua apenas os perfis necessários</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Verifique o email antes de salvar</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Desative usuários não utilizados</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

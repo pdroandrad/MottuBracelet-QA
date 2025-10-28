@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<head>
+    <title>Nova Moto</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">
+                <i class="fas fa-motorcycle me-2 text-success"></i>Nova Moto
+            </h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+                <a th:href="@{/motos}" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-1"></i>Voltar
+                </a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card shadow">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-edit me-2"></i>Dados da Moto
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/motos}" th:object="${moto}" method="post">
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="imei" class="form-label">IMEI *</label>
+                                    <input type="text" class="form-control" id="imei" th:field="*{imei}" 
+                                           th:classappend="${#fields.hasErrors('imei')} ? 'is-invalid' : ''" 
+                                           placeholder="123456789012345" required>
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('imei')}" th:errors="*{imei}">
+                                        Erro no IMEI
+                                    </div>
+                                    <div class="form-text">Código único de identificação do dispositivo</div>
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label for="placa" class="form-label">Placa *</label>
+                                    <input type="text" class="form-control" id="placa" th:field="*{placa}" 
+                                           th:classappend="${#fields.hasErrors('placa')} ? 'is-invalid' : ''" 
+                                           placeholder="ABC1D23" required>
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('placa')}" th:errors="*{placa}">
+                                        Erro na placa
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
+                                    <label for="chassi" class="form-label">Chassi *</label>
+                                    <input type="text" class="form-control" id="chassi" th:field="*{chassi}" 
+                                           th:classappend="${#fields.hasErrors('chassi')} ? 'is-invalid' : ''" 
+                                           placeholder="9BWZZZ377VT004251" required>
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('chassi')}" th:errors="*{chassi}">
+                                        Erro no chassi
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="patio" class="form-label">Pátio Atual</label>
+                                    <select class="form-select" id="patio" th:field="*{patio}">
+                                        <option value="">Selecione um pátio</option>
+                                        <option th:each="patio : ${patios}" 
+                                                th:value="${patio.id}" 
+                                                th:text="${patio.nome}">Nome do Pátio</option>
+                                    </select>
+                                    <div class="form-text">Pátio onde a moto está localizada atualmente</div>
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label for="dispositivo" class="form-label">Dispositivo</label>
+                                    <select class="form-select" id="dispositivo" th:field="*{dispositivo}">
+                                        <option value="">Selecione um dispositivo</option>
+                                        <option th:each="dispositivo : ${dispositivos}" 
+                                                th:value="${dispositivo.id}" 
+                                                th:text="'ID: ' + ${dispositivo.id} + ' - ' + ${dispositivo.status}">Dispositivo</option>
+                                    </select>
+                                    <div class="form-text">Dispositivo bracelet associado à moto</div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-end gap-2">
+                                <a th:href="@{/motos}" class="btn btn-secondary">
+                                    <i class="fas fa-times me-1"></i>Cancelar
+                                </a>
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fas fa-save me-1"></i>Salvar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="card shadow">
+                    <div class="card-header bg-dark text-white">
+                        <h6 class="mb-0">
+                            <i class="fas fa-info-circle me-2"></i>Informações
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Campos obrigatórios:</strong></p>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success me-2"></i>IMEI (único)</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Chassi</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Placa</li>
+                        </ul>
+                        
+                        <hr>
+                        
+                        <p><strong>Campos opcionais:</strong></p>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-info text-info me-2"></i>Pátio atual</li>
+                            <li><i class="fas fa-info text-info me-2"></i>Dispositivo bracelet</li>
+                        </ul>
+                        
+                        <hr>
+                        
+                        <p><strong>Dicas:</strong></p>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-lightbulb text-warning me-2"></i>IMEI deve ser único</li>
+                            <li><i class="fas fa-lightbulb text-warning me-2"></i>Verifique os dados antes de salvar</li>
+                            <li><i class="fas fa-lightbulb text-warning me-2"></i>Associe a um pátio para melhor controle</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
