@@ -3,7 +3,7 @@
 Repositório dedicado aos testes manuais e automatizados do projeto MottuBracelet.
 
 ## 🔗 Links Importantes
-- 🎯 **Azure Boards:** [https://dev.azure.com/RM558186/MottuBracelet-Sprint-4](https://dev.azure.com/RM558186/MottuBracelet-Sprint-4)
+- 🎯 **Azure Boards:** [https://dev.azure.com/RM558186/MottuBracelet](https://dev.azure.com/RM558186/MottuBracelet)
 - 🎥 **Vídeo de execução dos testes:** [link do vídeo no YouTube]
 - 🧩 **Branch:** `develop`
 - 🧪 **Testes Automatizados:** Implementados em `src/test/java/br/com/fiap/MottuBracelet/`
