@@ -1,10 +1,16 @@
 # 🏍️ MottuBracelet - Sprint 4 (Compliance, Quality Assurance & Tests)
 
+## 👨‍💻 Integrantes
+
+- Pedro Abrantes Andrade | RM558186  
+- Ricardo Tavares de Oliveira Filho | RM556092  
+- Victor Alves Carmona | RM555726  
+
 Repositório dedicado aos testes manuais e automatizados do projeto MottuBracelet.
 
 ## 🔗 Links Importantes
 - 🎯 **Azure Boards:** [https://dev.azure.com/RM558186/MottuBracelet](https://dev.azure.com/RM558186/MottuBracelet)
-- 🎥 **Vídeo de execução dos testes:** [link do vídeo no YouTube]
+- 🎥 **Vídeo de execução dos testes:** [https://www.youtube.com/watch?v=FeG7ZPMaTQo](https://www.youtube.com/watch?v=FeG7ZPMaTQo)
 - 🧩 **Branch:** `develop`
 - 🧪 **Testes Automatizados:** Implementados em `src/test/java/br/com/fiap/MottuBracelet/`
 
